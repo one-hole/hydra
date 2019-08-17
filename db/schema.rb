@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_16_152605) do
+ActiveRecord::Schema.define(version: 2019_08_17_130005) do
+
+  create_table "account_details", force: :cascade do |t|
+    t.string "accountable_type"
+    t.integer "accountable_id"
+    t.decimal "amount", precision: 15, scale: 10
+    t.string "operateable_type"
+    t.integer "operateable_id"
+    t.string "mark"
+    t.integer "account_id"
+    t.index ["account_id"], name: "index_account_details_on_account_id"
+    t.index ["accountable_type", "accountable_id"], name: "index_account_details_on_accountable_type_and_accountable_id"
+    t.index ["operateable_type", "operateable_id"], name: "index_account_details_on_operateable_type_and_operateable_id"
+  end
 
   create_table "accounts", force: :cascade do |t|
     t.integer "user_id"

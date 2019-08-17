@@ -2,10 +2,14 @@
 
 =begin
 
-phone
-password
+  phone
+  password
 
-has_one account
+  has_one account
+
+  用户应该有城市 - 同城匹配使用
+  用户可以创建 充值订单 - ChargeOrder
+  用户可以抢单 抢单订单 - RushOrder
   
 =end
 
@@ -13,13 +17,30 @@ class User < ApplicationRecord
 
   has_secure_password
 
+  has_one  :account
+  has_many :charge_orders
+  has_many :rush_orders
+
   before_create do
-    genenrate_token
+    generate_token
+    generate_account
   end
 
 
   private
-    def genenrate_token
-      
+    def generate_token
+      self.token = loop do
+        token = SecureRandom.urlsafe_base64
+        break token unless User.exists?(token: token)
+      end
+    end
+
+    def generate_account
+      self.build_account(
+        {
+          coin: 0.0,
+          frozen_coin: 0.0
+        }
+      )
     end
 end
