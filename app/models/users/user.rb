@@ -36,11 +36,6 @@ class User < ApplicationRecord
     end
 
     def generate_account
-      self.build_account(
-        {
-          coin: 0.0,
-          frozen_coin: 0.0
-        }
-      )
+      self.build_account(coin: 0.0, frozen_coin: 0.0)
     end
 end

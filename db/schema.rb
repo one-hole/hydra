@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_17_130005) do
+ActiveRecord::Schema.define(version: 2019_08_18_143006) do
 
   create_table "account_details", force: :cascade do |t|
     t.string "accountable_type"
@@ -32,6 +32,22 @@ ActiveRecord::Schema.define(version: 2019_08_17_130005) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_accounts_on_user_id"
+  end
+
+  create_table "bc_orders", force: :cascade do |t|
+    t.integer "tenant_id"
+    t.integer "user_id"
+    t.string "bc_number"
+    t.string "number"
+    t.decimal "amount", precision: 15, scale: 10
+    t.string "city"
+    t.integer "status"
+    t.index ["bc_number", "tenant_id"], name: "idx_uniq_bc_tenant", unique: true
+    t.index ["city"], name: "idx_bc_city"
+    t.index ["number"], name: "idx_bc_num", unique: true
+    t.index ["status"], name: "index_bc_orders_on_status"
+    t.index ["tenant_id"], name: "index_bc_orders_on_tenant_id"
+    t.index ["user_id"], name: "index_bc_orders_on_user_id"
   end
 
   create_table "tenants", force: :cascade do |t|

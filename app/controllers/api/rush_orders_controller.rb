@@ -1,11 +1,13 @@
-# 这里列出所有的 「待抢购 的 RushOrder」
-
 module Api
   class RushOrdersController < BaseController
-    def index
+
+    # POST /rush_orders
+    # 用户抢单「抢 BC平台分配过来的充值单、这里就是 创建 RushOrder 」
+    def create
       render json: {
         "abc": "abc"
       }
     end
+
   end
 end
