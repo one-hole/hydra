@@ -4,6 +4,14 @@ class Api::BaseController < ApplicationController
     raise AuthenticationError unless current_user
   end
 
+  def current_page
+    params.fetch(:page).to_i rescue 1
+  end
+
+  def per_size
+    10
+  end
+
   private
 
   def current_user

@@ -9,7 +9,7 @@
   我们平台单号
   地点(用字符串表示、暂时)
 
-  状态: 
+  状态:
 
   1. BC平台发过来、「已接收」
   2. 用户抢单成功、「待确认」
@@ -18,6 +18,12 @@
 
 =end
 class BcOrder < ApplicationRecord
+
+  enum status: {
+    'ACCEPTED'  => 1,
+    'PENDING'   => 2,
+    'CONFIRMED' => 3
+  }
 
   belongs_to :tenant
   belongs_to :user, optional: true

@@ -9,5 +9,10 @@ module Api
       }
     end
 
+    private
+      def load_bc_order
+        @bcorder = BcOrder.find_by(id: params[:bc_id], status: 1)
+        raise BcOrderNotFoundError unless @bcorder
+      end
   end
 end

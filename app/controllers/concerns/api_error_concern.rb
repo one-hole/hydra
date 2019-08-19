@@ -21,8 +21,25 @@ module ApiErrorConcern
 
   class PhoneNotFoundError < ApiError
     def initialize
-      super code: 6001, text: 'Can not found user by given phone', status: 400
+      super code: 6001, text: 'Can not found user by given phone', status: 404
     end
   end
-  
+
+  class BcOrderNotFoundError < ApiError
+    def initialize
+      super code: 6002, text: 'ACCEPTED BcOrder Not Found', status: 404
+    end
+  end
+
+  class ChargeOrderBuildError < ApiError
+    def initialize
+      super code: 6004, text: 'ChargeOrder Build Error', status: 404
+    end
+  end
+
+  class ChargeOrderNotFoundError < ApiError
+    def initialize
+      super code: 6004, text: 'ChargeOrder Not Found', status: 404
+    end
+  end
 end
