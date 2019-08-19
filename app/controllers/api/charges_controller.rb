@@ -5,6 +5,9 @@ module Api
 
     # 我的充值列表
     def index
+      load_records
+      render json:
+        @records, each_serializer: ChargeCreateSerializer, root: 'data', meta: meta, status: 200
     end
 
     # 发起一个充值的单子
@@ -44,6 +47,18 @@ module Api
 
       def confirm_record
         @record.update(status: ChargeOrder::statuses['PAIED'])
+      end
+
+      def load_records
+        @records = current_user.charge_orders.where(status: ChargeOrder::statuses[params[:status]])
+      end
+
+      def meta
+        {
+          per_size:     per_size,
+          current_page: current_page,
+          total_count:  current_user.charge_orders.where(status: ChargeOrder::statuses[params[:status]]).count
+        }
       end
 
   end
