@@ -28,14 +28,15 @@ class User < ApplicationRecord
 
 
   private
-    def generate_token
-      self.token = loop do
-        token = SecureRandom.urlsafe_base64
-        break token unless User.exists?(token: token)
-      end
-    end
 
-    def generate_account
-      self.build_account(coin: 0.0, frozen_coin: 0.0)
+  def generate_token
+    self.token = loop do
+      token = SecureRandom.urlsafe_base64
+      break token unless User.exists?(token: token)
     end
+  end
+
+  def generate_account
+    build_account(coin: 0.0, frozen_coin: 0.0)
+  end
 end

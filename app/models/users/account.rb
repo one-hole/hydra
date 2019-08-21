@@ -7,19 +7,24 @@ class Account < ApplicationRecord
 
   belongs_to :user
 
+  def charge(amount)
+    increase(amount)
+  end
+
   # freeze 函数使用的是标量
   def freeze(amount)
-    self.with_lock { self.update(coin: self.coin - amount, frozen_coin: self.frozen_coin + amount) }
+    with_lock { update(coin: coin - amount, frozen_coin: frozen_coin + amount) }
   end
 
   # unfreeze 函数使用的是标量
   def unfreeze(amount)
-    self.with_lock { self.update(coin: self.coin + amount, frozen_coin: self.frozen_coin - amount) }
+    with_lock { update(coin: coin + amount, frozen_coin: frozen_coin - amount) }
   end
 
   private
-    # increase 函数使用的是矢量
-    def increase(amount)
-      self.with_lock { self.update(coin, self.coin + amount) }
-    end
+
+  # increase 函数使用的是矢量
+  def increase(amount)
+    with_lock { update(coin: (coin + amount)) }
+  end
 end
