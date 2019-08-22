@@ -29,6 +29,13 @@ class Account < ApplicationRecord
     with_lock { update(coin: coin + amount, frozen_coin: frozen_coin - amount) }
   end
 
+  # def unfreeze_and_pay(amount)
+  #   with_lock do
+  #     update(coin: coin + amount, frozen_coin: frozen_coin - amount)
+  #     update(coin: (coin + amount))
+  #   end
+  # end
+
   private
 
   # increase 函数使用的是矢量

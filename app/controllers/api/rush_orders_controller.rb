@@ -15,10 +15,22 @@ module Api
 
     # 用户确认
     def update
-
+      load_record
+      confirm_record
+      render json:
+        @record
     end
 
     private
+
+    def confirm_record
+      raise RushOrderConfirmError unless @record.confirm
+    end
+
+    def load_record
+      @record = current_user.rush_orders.find_by(id: params[:id])
+      raise RushOrderNotFoundError unless @record
+    end
 
     def check_account
       raise AccountRemainError unless current_user.account.enough(@bc_order.amount)

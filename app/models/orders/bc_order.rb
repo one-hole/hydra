@@ -29,4 +29,9 @@ class BcOrder < ApplicationRecord
 
   belongs_to :tenant
   belongs_to :user, optional: true
+
+  def confirm
+    update(status: 3)
+    # TODO notify bc platform
+  end
 end

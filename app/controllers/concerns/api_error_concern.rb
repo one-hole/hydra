@@ -25,6 +25,12 @@ module ApiErrorConcern
     end
   end
 
+  class RushOrderConfirmError < ApiError
+    def initialize
+      super code: 5001, text: 'RushOrder Confirmed Error', status: 404
+    end
+  end
+
   class PhoneNotFoundError < ApiError
     def initialize
       super code: 6001, text: 'Can not found user by given phone', status: 404
@@ -39,13 +45,19 @@ module ApiErrorConcern
 
   class ChargeOrderBuildError < ApiError
     def initialize
-      super code: 6004, text: 'ChargeOrder Build Error', status: 404
+      super code: 6003, text: 'ChargeOrder Build Error', status: 404
     end
   end
 
   class ChargeOrderNotFoundError < ApiError
     def initialize
       super code: 6004, text: 'ChargeOrder Not Found', status: 404
+    end
+  end
+
+  class RushOrderNotFoundError < ApiError
+    def initialize
+      super code: 6005, text: 'RushOrder Not Found', status: 404
     end
   end
 end
