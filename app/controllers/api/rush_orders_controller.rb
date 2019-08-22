@@ -13,6 +13,11 @@ module Api
         @record
     end
 
+    # 用户确认
+    def update
+
+    end
+
     private
 
     def check_account
