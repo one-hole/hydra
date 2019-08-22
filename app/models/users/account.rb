@@ -7,6 +7,10 @@ class Account < ApplicationRecord
 
   belongs_to :user
 
+  def enough(amount)
+    return coin >= amount
+  end
+
   def charge(amount)
     increase(amount)
   end

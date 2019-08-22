@@ -7,7 +7,9 @@ class CreateBcOrders < ActiveRecord::Migration[6.0]
       t.string     :number
       t.decimal    :amount, precision: 15, scale: 10
       t.string     :city
-      t.integer    :status, index: true  #TODO 
+      t.integer    :status, index: true  #TODO
+
+      t.timestamps
     end
 
     add_index(:bc_orders, [:bc_number, :tenant_id], unique: true, name: 'idx_uniq_bc_tenant')

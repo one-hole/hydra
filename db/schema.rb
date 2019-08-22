@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_19_134816) do
+ActiveRecord::Schema.define(version: 2019_08_21_150558) do
 
   create_table "account_details", force: :cascade do |t|
     t.string "accountable_type"
@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(version: 2019_08_19_134816) do
     t.integer "operateable_id"
     t.string "mark"
     t.integer "account_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["account_id"], name: "index_account_details_on_account_id"
     t.index ["accountable_type", "accountable_id"], name: "index_account_details_on_accountable_type_and_accountable_id"
     t.index ["operateable_type", "operateable_id"], name: "index_account_details_on_operateable_type_and_operateable_id"
@@ -42,6 +44,8 @@ ActiveRecord::Schema.define(version: 2019_08_19_134816) do
     t.decimal "amount", precision: 15, scale: 10
     t.string "city"
     t.integer "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["bc_number", "tenant_id"], name: "idx_uniq_bc_tenant", unique: true
     t.index ["city"], name: "idx_bc_city"
     t.index ["number"], name: "idx_bc_num", unique: true
@@ -54,7 +58,19 @@ ActiveRecord::Schema.define(version: 2019_08_19_134816) do
     t.integer "user_id"
     t.integer "status", default: 1
     t.decimal "amount", precision: 15, scale: 10
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_charge_orders_on_user_id"
+  end
+
+  create_table "rush_orders", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "bc_order_id"
+    t.integer "status", default: 1
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["bc_order_id"], name: "index_rush_orders_on_bc_order_id"
+    t.index ["user_id"], name: "index_rush_orders_on_user_id"
   end
 
   create_table "tenants", force: :cascade do |t|

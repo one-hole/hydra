@@ -9,16 +9,17 @@ module Api
     end
 
     private
-      def load_records
-        @records ||= BcOrder.page(current_page).per(per_size)
-      end
 
-      def meta
-        {
-          current_page: current_page,
-          total_count: BcOrder.count,
-          per_size: per_size
-        }
-      end
+    def load_records
+      @records ||= BcOrder.page(current_page).per(per_size)
+    end
+
+    def meta
+      {
+        current_page: current_page,
+        total_count: BcOrder.count,
+        per_size: per_size
+      }
+    end
   end
 end

@@ -9,8 +9,9 @@ module Admin
     end
 
     private
-      def load_record
-        @charge = ChargeOrder.find_by(id: params[:id])
-      end
+
+    def load_record
+      @charge = ChargeOrder.find_by(id: params[:id])
+    end
   end
 end

@@ -4,6 +4,8 @@ class CreateChargeOrders < ActiveRecord::Migration[6.0]
       t.references :user
       t.integer    :status, default: 1
       t.decimal    :amount, precision: 15, scale: 10
+
+      t.timestamps
     end
   end
 end

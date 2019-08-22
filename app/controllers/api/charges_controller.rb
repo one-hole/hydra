@@ -31,35 +31,36 @@ module Api
     end
 
     private
-      def charge_params
-        params.fetch(:charges)
-      end
 
-      def build_record
-        @record = current_user.charge_orders.create!(amount: charge_params[:amount])
-        raise ChargeOrderBuildError unless @record
-      end
+    def charge_params
+      params.fetch(:charges)
+    end
 
-      def load_record
-        @record = current_user.charge_orders.find_by(id: params[:id])
-        raise ChargeOrderNotFoundError unless @record
-      end
+    def build_record
+      @record = current_user.charge_orders.create!(amount: charge_params[:amount])
+      raise ChargeOrderBuildError unless @record
+    end
 
-      def confirm_record
-        @record.update(status: ChargeOrder::statuses['PAIED'])
-      end
+    def load_record
+      @record = current_user.charge_orders.find_by(id: params[:id])
+      raise ChargeOrderNotFoundError unless @record
+    end
 
-      def load_records
-        @records = current_user.charge_orders.where(status: ChargeOrder::statuses[params[:status]])
-      end
+    def confirm_record
+      @record.update(status: ChargeOrder::statuses['PAIED'])
+    end
 
-      def meta
-        {
-          per_size:     per_size,
-          current_page: current_page,
-          total_count:  current_user.charge_orders.where(status: ChargeOrder::statuses[params[:status]]).count
-        }
-      end
+    def load_records
+      @records = current_user.charge_orders.where(status: ChargeOrder::statuses[params[:status]])
+    end
+
+    def meta
+      {
+        per_size: per_size,
+        current_page: current_page,
+        total_count: current_user.charge_orders.where(status: ChargeOrder::statuses[params[:status]]).count
+      }
+    end
 
   end
 end

@@ -13,6 +13,12 @@ module ApiErrorConcern
     end
   end
 
+  class AccountRemainError < ApiError
+    def initialize
+      super code: 1002, text: 'Account Remain Not Enough', status: 401
+    end
+  end
+
   class PasswordError < ApiError
     def initialize
       super code: 2001, text: 'Password Error', status: 401

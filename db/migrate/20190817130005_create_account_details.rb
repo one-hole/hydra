@@ -6,6 +6,8 @@ class CreateAccountDetails < ActiveRecord::Migration[6.0]
       t.references :operateable, polymorphic: true
       t.string     :mark
       t.references :account
+
+      t.timestamps
     end
   end
 end
