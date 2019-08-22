@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 2019_08_21_150558) do
     t.string "number"
     t.decimal "amount", precision: 15, scale: 10
     t.string "city"
-    t.integer "status"
+    t.integer "status", default: 1
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["bc_number", "tenant_id"], name: "idx_uniq_bc_tenant", unique: true

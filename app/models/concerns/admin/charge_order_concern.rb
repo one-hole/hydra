@@ -8,6 +8,7 @@ module Admin
       # TODO 需要在模型层也加入管控
       def confirm
         AccountDetail.build(self, account, amount, user,'')
+        update(status: ChargeOrder::statuses["CONFIRMED"])
       end
     end
   end

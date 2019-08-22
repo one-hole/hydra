@@ -25,6 +25,8 @@ class BcOrder < ApplicationRecord
     'CONFIRMED' => 3
   }
 
+  validates_numericality_of :amount, greater_than_or_equal_to: 0.0
+
   belongs_to :tenant
   belongs_to :user, optional: true
 end

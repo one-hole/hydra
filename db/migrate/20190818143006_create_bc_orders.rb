@@ -7,7 +7,7 @@ class CreateBcOrders < ActiveRecord::Migration[6.0]
       t.string     :number
       t.decimal    :amount, precision: 15, scale: 10
       t.string     :city
-      t.integer    :status, index: true  #TODO
+      t.integer    :status, index: true, default: 1
 
       t.timestamps
     end

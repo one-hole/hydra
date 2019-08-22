@@ -37,7 +37,7 @@ module Api
     end
 
     def build_record
-      @record = current_user.charge_orders.create!(amount: charge_params[:amount])
+      @record = current_user.charge_orders.create!(amount: charge_params[:amount], status: 1)
       raise ChargeOrderBuildError unless @record
     end
 
@@ -47,7 +47,7 @@ module Api
     end
 
     def confirm_record
-      @record.update(status: ChargeOrder::statuses['PAIED'])
+      @record.update(status: ChargeOrder::statuses["PAID"])
     end
 
     def load_records

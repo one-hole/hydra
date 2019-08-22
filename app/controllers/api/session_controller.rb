@@ -5,7 +5,7 @@
 
 module Api
   class SessionController < ActionController::API
-  
+
     # POST /session
     def create
       load_user

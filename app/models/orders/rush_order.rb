@@ -7,19 +7,26 @@
 # Status
 
 # 1. CREATED (已经创建)
-# 2.
+# 2. CONFIRMED (已经确认) 1 -> 2 由商家确认（商家也就是我们的用户）
 
 class RushOrder < ApplicationRecord
+
   belongs_to :user
   belongs_to :bc_order
 
   enum status: {
-
+    "CREATED" => 1,
+    "CONFIRMED" => 2
   }
 
   def self.build(user, bc_order)
+    @rush_order = nil
     RushOrder.transaction do
-
+      @rush_order = user.rush_orders.create(bc_order: bc_order)
+      user.account.pay(bc_order.amount)
+      bc_order.update(status: 2)
     end
+
+    return @rush_order
   end
 end

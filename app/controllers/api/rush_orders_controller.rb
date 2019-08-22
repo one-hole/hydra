@@ -9,6 +9,8 @@ module Api
       load_bc_order
       check_account
       build_record
+      render json:
+        @record
     end
 
     private
@@ -23,7 +25,7 @@ module Api
     end
 
     def build_record
-      @record = current_user.rush_orders.create(bc_)
+      @record = RushOrder.build(current_user, @bc_order)
     end
   end
 end

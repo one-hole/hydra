@@ -12,10 +12,10 @@
 class ChargeOrder < ApplicationRecord
 
   enum status: {
-    CREATED: 1,
-    PAID: 2,
-    CONFIRMED: 3,
-    CANCELED: 6
+    "CREATED" => 1,
+    "PAID" => 2,
+    "CONFIRMED" => 3,
+    "CANCELED" => 6
   }
 
   belongs_to :user

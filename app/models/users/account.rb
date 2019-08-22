@@ -15,6 +15,10 @@ class Account < ApplicationRecord
     increase(amount)
   end
 
+  def pay(amount)
+    increase(-amount)
+  end
+
   # freeze 函数使用的是标量
   def freeze(amount)
     with_lock { update(coin: coin - amount, frozen_coin: frozen_coin + amount) }
