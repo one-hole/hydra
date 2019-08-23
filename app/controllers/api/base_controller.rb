@@ -5,7 +5,7 @@ class Api::BaseController < ApplicationController
   end
 
   def current_page
-    params.fetch(:page).to_i rescue 1
+    params.fetch(:page, 1).to_i
   end
 
   def per_size

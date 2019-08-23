@@ -27,7 +27,7 @@ class RushOrder < ApplicationRecord
     RushOrder.transaction do
       @rush_order = user.rush_orders.create(bc_order: bc_order)
       user.account.freeze(bc_order.amount)
-      bc_order.update(status: 2)
+      bc_order.update(status: 2, user: user)
     end
 
     @rush_order
