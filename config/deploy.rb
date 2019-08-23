@@ -2,6 +2,7 @@ require 'mina/bundler'
 require 'mina/rails'
 require 'mina/git'
 require 'mina/rbenv'  # for rbenv support. (https://rbenv.org)
+require 'mina/puma'
 
 
 
@@ -33,6 +34,16 @@ end
 # All paths in `shared_dirs` and `shared_paths` will be created on their own.
 task :setup do
   command %{rbenv install 2.6.3 --skip-existing}
+
+  command %{mkdir -p "#{fetch(:shared_path)}/tmp/sockets"}
+  command %{mkdir -p "#{fetch(:shared_path)}/tmp/pids"}
+
+  command %[touch "#{fetch(:shared_path)}/config/master.key"]
+  command %[touch "#{fetch(:shared_path)}/config/puma.rb"]
+  command %[touch "#{fetch(:shared_path)}/config/database.yml"]
+  command %[touch "#{fetch(:shared_path)}/config/secrets.yml"]
+
+  comment "Be sure to edit '#{fetch(:shared_path)}/config/database.yml', 'secrets.yml' and puma.rb."
 end
 
 desc 'Deploys the current version to the server.'
@@ -43,13 +54,14 @@ task :deploy do
     invoke :'git:clone'
     invoke :'deploy:link_shared_paths'
     invoke :'bundle:install'
-    # invoke :'rails:db_migrate'
+    invoke :'rails:db_migrate'
     invoke :'deploy:cleanup'
 
     on :launch do
       in_path(fetch(:current_path)) do
         command %{mkdir -p tmp/}
         command %{touch tmp/restart.txt}
+        invoke :'puma:phased_restart'
       end
     end
   end
