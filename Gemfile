@@ -4,7 +4,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.3'
 
 gem 'rails', '~> 6.0.0'
-gem 'sqlite3'
 gem 'mysql2'
 gem 'puma', '~> 3.11'
 gem 'bcrypt', '~> 3.1.7'
@@ -27,4 +26,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'awesome_print'
+  gem 'mina', '~> 1.2', '>= 1.2.3'
+  gem 'mina-puma', '~> 1.1', require: false
+
 end
