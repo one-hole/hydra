@@ -4,5 +4,6 @@ defaults format: :json do
     resources :session,     only: [:create, :destroy]
     resources :bc_orders,   only: [:index]
     resources :charges,     only: [:index, :create, :update]
+    resource :profile,      only: [:show, :update]
   end
 end

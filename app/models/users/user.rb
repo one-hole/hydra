@@ -17,13 +17,15 @@ class User < ApplicationRecord
 
   has_secure_password
 
-  has_one  :account
+  has_one :account
+  has_one :profile
   has_many :charge_orders
   has_many :rush_orders
 
   before_create do
     generate_token
     generate_account
+    generate_profile
   end
 
 
@@ -38,5 +40,9 @@ class User < ApplicationRecord
 
   def generate_account
     build_account(coin: 0.0, frozen_coin: 0.0)
+  end
+
+  def generate_profile
+    build_profile()
   end
 end

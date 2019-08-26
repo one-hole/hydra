@@ -10,16 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_21_150558) do
+ActiveRecord::Schema.define(version: 2019_08_26_130249) do
 
-  create_table "account_details", force: :cascade do |t|
+  create_table "account_details", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "accountable_type"
-    t.integer "accountable_id"
+    t.bigint "accountable_id"
     t.decimal "amount", precision: 15, scale: 10
     t.string "operateable_type"
-    t.integer "operateable_id"
+    t.bigint "operateable_id"
     t.string "mark"
-    t.integer "account_id"
+    t.bigint "account_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["account_id"], name: "index_account_details_on_account_id"
@@ -27,8 +27,8 @@ ActiveRecord::Schema.define(version: 2019_08_21_150558) do
     t.index ["operateable_type", "operateable_id"], name: "index_account_details_on_operateable_type_and_operateable_id"
   end
 
-  create_table "accounts", force: :cascade do |t|
-    t.integer "user_id"
+  create_table "accounts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
     t.decimal "coin", precision: 15, scale: 10
     t.decimal "frozen_coin", precision: 15, scale: 10
     t.datetime "created_at", precision: 6, null: false
@@ -36,9 +36,9 @@ ActiveRecord::Schema.define(version: 2019_08_21_150558) do
     t.index ["user_id"], name: "index_accounts_on_user_id"
   end
 
-  create_table "bc_orders", force: :cascade do |t|
-    t.integer "tenant_id"
-    t.integer "user_id"
+  create_table "bc_orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "tenant_id"
+    t.bigint "user_id"
     t.string "bc_number"
     t.string "number"
     t.decimal "amount", precision: 15, scale: 10
@@ -54,8 +54,8 @@ ActiveRecord::Schema.define(version: 2019_08_21_150558) do
     t.index ["user_id"], name: "index_bc_orders_on_user_id"
   end
 
-  create_table "charge_orders", force: :cascade do |t|
-    t.integer "user_id"
+  create_table "charge_orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
     t.integer "status", default: 1
     t.decimal "amount", precision: 15, scale: 10
     t.datetime "created_at", precision: 6, null: false
@@ -63,9 +63,19 @@ ActiveRecord::Schema.define(version: 2019_08_21_150558) do
     t.index ["user_id"], name: "index_charge_orders_on_user_id"
   end
 
-  create_table "rush_orders", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "bc_order_id"
+  create_table "profiles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "wx"
+    t.string "zfb"
+    t.string "qq"
+    t.string "jd"
+    t.string "ysf"
+    t.index ["user_id"], name: "index_profiles_on_user_id"
+  end
+
+  create_table "rush_orders", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "bc_order_id"
     t.integer "status", default: 1
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -73,7 +83,7 @@ ActiveRecord::Schema.define(version: 2019_08_21_150558) do
     t.index ["user_id"], name: "index_rush_orders_on_user_id"
   end
 
-  create_table "tenants", force: :cascade do |t|
+  create_table "tenants", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.string "api_key"
     t.text "pub_key"
@@ -84,7 +94,7 @@ ActiveRecord::Schema.define(version: 2019_08_21_150558) do
     t.index ["api_key"], name: "idx_tenant_key", unique: true
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.string "phone"
     t.string "token"
