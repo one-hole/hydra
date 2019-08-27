@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     instance_eval(File.read(Rails.root.join("config/routes/#{routes_name}.rb")))
   end
 
+  resources :oss, only: [:index]
+
   draw :api
   draw :admin
 end
