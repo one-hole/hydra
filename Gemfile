@@ -5,7 +5,7 @@ ruby '2.6.3'
 
 gem 'rails', '~> 6.0.0'
 gem 'mysql2'
-gem 'puma', '~> 3.11'
+gem 'puma', '~> 4.3'
 gem 'bcrypt', '~> 3.1.7'
 gem 'active_model_serializers'
 gem 'kaminari'
